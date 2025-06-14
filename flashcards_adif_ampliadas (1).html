@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Flashcards ADIF</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background: #f4f4f4; }
+        header { background: #004080; color: white; padding: 1em; text-align: center; }
+        .container { padding: 1em; max-width: 800px; margin: auto; }
+        .block-title { font-size: 1.2em; margin-top: 1.5em; color: #004080; }
+        .flashcard { background: white; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin: 1em 0; padding: 1em; cursor: pointer; transition: transform 0.3s; }
+        .flashcard:hover { transform: scale(1.02); }
+        .answer { display: none; margin-top: 0.5em; color: #333; }
+        .progress { position: fixed; top: 1em; right: 1em; background: #004080; color: white; padding: 0.5em 1em; border-radius: 5px; }
+        .button { margin-top: 0.5em; padding: 0.3em 0.6em; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Flashcards ADIF</h1>
+    <p>Bloques temáticos con progreso</p>
+</header>
+<div class="progress" id="progress">0/9 (0%)</div>
+<div class="container">
+    <div class="block-title">🟦 Bloque Común</div>
+    <div class="flashcard" onclick="toggleAnswer(this)">
+        <div class="question">¿Qué es ADIF y cuál es su función principal?</div>
+        <div class="answer">ADIF es el Administrador de Infraestructuras Ferroviarias y su función principal es gestionar la infraestructura ferroviaria en España.</div>
+        <button class="button" onclick="markCorrect(event)">Acerté</button>
+    </div>
+    <div class="flashcard" onclick="toggleAnswer(this)">
+        <div class="question">¿Qué ley regula el sector ferroviario en España?</div>
+        <div class="answer">La Ley 38/2015, de 29 de septiembre, del sector ferroviario.</div>
+        <button class="button" onclick="markCorrect(event)">Acerté</button>
+    </div>
+    <div class="flashcard" onclick="toggleAnswer(this)">
+        <div class="question">¿Qué organismo supervisa la seguridad ferroviaria?</div>
+        <div class="answer">La Agencia Estatal de Seguridad Ferroviaria (AESF).</div>
+        <button class="button" onclick="markCorrect(event)">Acerté</button>
+    </div>
+
+    <div class="block-title">🟩 Oficial Administrativo de Entrada</div>
+    <div class="flashcard" onclick="toggleAnswer(this)">
+        <div class="question">¿Qué es un expediente administrativo?</div>
+        <div class="answer">Es el conjunto ordenado de documentos y actuaciones que sirven de antecedente y fundamento a la resolución administrativa.</div>
+        <button class="button" onclick="markCorrect(event)">Acerté</button>
+    </div>
+    <div class="flashcard" onclick="toggleAnswer(this)">
+        <div class="question">¿Qué es el registro electrónico?</div>
+        <div class="answer">Es un sistema que permite la presentación de documentos y solicitudes a través de medios electrónicos.</div>
+        <button class="button" onclick="markCorrect(event)">Acerté</button>
+    </div>
+    <div class="flashcard" onclick="toggleAnswer(this)">
+        <div class="question">¿Qué es la Ley de Procedimiento Administrativo Común?</div>
+        <div class="answer">Es la Ley 39/2015, que regula el procedimiento administrativo común de las administraciones públicas.</div>
+        <button class="button" onclick="markCorrect(event)">Acerté</button>
+    </div>
+
+    <div class="block-title">🟥 Factor de Circulación de Entrada</div>
+    <div class="flashcard" onclick="toggleAnswer(this)">
+        <div class="question">¿Qué es una señal ferroviaria?</div>
+        <div class="answer">Es un dispositivo que transmite información al maquinista sobre las condiciones de circulación.</div>
+        <button class="button" onclick="markCorrect(event)">Acerté</button>
+    </div>
+    <div class="flashcard" onclick="toggleAnswer(this)">
+        <div class="question">¿Qué es un enclavamiento?</div>
+        <div class="answer">Es un sistema que impide movimientos incompatibles en una estación ferroviaria.</div>
+        <button class="button" onclick="markCorrect(event)">Acerté</button>
+    </div>
+    <div class="flashcard" onclick="toggleAnswer(this)">
+        <div class="question">¿Qué es una vía principal?</div>
+        <div class="answer">Es aquella destinada preferentemente a la circulación de trenes.</div>
+        <button class="button" onclick="markCorrect(event)">Acerté</button>
+    </div>
+</div>
+
+<script>
+    let total = 9;
+    let correct = 0;
+
+    function toggleAnswer(card) {
+        const answer = card.querySelector('.answer');
+        answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function markCorrect(event) {
+        event.stopPropagation();
+        const button = event.target;
+        if (!button.classList.contains('marked')) {
+            correct++;
+            button.classList.add('marked');
+            updateProgress();
+        }
+    }
+
+    function updateProgress() {
+        const percent = Math.round((correct / total) * 100);
+        document.getElementById('progress').textContent = `${correct}/${total} (${percent}%)`;
+    }
+</script>
+</body>
+</html>
